@@ -2522,7 +2522,7 @@ function RadientPaid:Window(text,maincolor)
 				Seperator2.Size = UDim2.new(0, 401, 0, 1)
 				ChannelHolder.CanvasSize = UDim2.new(0,0,0,ChannelHolderLayout.AbsoluteContentSize.Y)
 			end
-			function ChannelContent:Dropdown(text, list, callback)
+			function ChannelContent:Dropdown(text, list, default, callback)
 				local DropFunc = {}
 				local itemcount = 0
 				local framesize = 0
@@ -2579,6 +2579,19 @@ function RadientPaid:Window(text,maincolor)
 				DropdownFrameCorner.Name = "DropdownFrameCorner"
 				DropdownFrameCorner.Parent = DropdownFrame
 
+                function getpro()
+                    if default then
+                        if table.find(list, default) then
+                            pcall(callback, default)
+                            return default
+                        else
+                            return "..."
+                        end
+                    else
+                        return "..."
+                    end
+                end
+
 				CurrentSelectedText.Name = "CurrentSelectedText"
 				CurrentSelectedText.Parent = DropdownFrame
 				CurrentSelectedText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -2586,7 +2599,7 @@ function RadientPaid:Window(text,maincolor)
 				CurrentSelectedText.Position = UDim2.new(0.0178571437, 0, 0, 0)
 				CurrentSelectedText.Size = UDim2.new(0, 193, 0, 32)
 				CurrentSelectedText.Font = Enum.Font.Gotham
-				CurrentSelectedText.Text = "..."
+				CurrentSelectedText.Text = getpro()
 				CurrentSelectedText.TextColor3 = Color3.fromRGB(212, 212, 212)
 				CurrentSelectedText.TextSize = 14.000
 				CurrentSelectedText.TextXAlignment = Enum.TextXAlignment.Left
